@@ -1,19 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'registration/base-logout.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+{{ form_start(form) }}
+    <div>{{ form_row(form.lastname) }}</div>
+    <div>{{ form_row(form.firstname) }}</div>
+    <div>{{ form_row(form.email) }}</div>
+    <div>
+        <div>{{ form_row(form.plainPassword.first) }}</div>
+        <div>{{ form_row(form.plainPassword.second) }}</div>
+    </div>
+    <button type="submit" class="button button-submit">Continuer</button>
+{{ form_end(form) }}
+<a href="#" class="link-logout">Vous avez déjà un compte ?</a>
 {% endblock %}
