@@ -51,7 +51,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'firstname', length: 255)]
     private ?string $firstname = null;
 
-    #[Assert\LessThanOrEqual('today')]
+    #[Assert\LessThanOrEqual('now')]
     #[Assert\NotBlank()]
     #[ORM\Column(name: 'start', type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $start = null;
