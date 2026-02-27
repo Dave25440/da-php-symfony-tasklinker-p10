@@ -41,7 +41,13 @@
             </nav>
             <main>
                 <header>
-                    <div id="current-user"></div>
+                    <div id="current-user">
+                        {% if app.user %}
+                        <a href="{{ path('app_logout') }}" class="avatar">
+                            {{ app.user.firstname|slice(0,1)|upper ~ app.user.lastname|slice(0,1)|upper }}
+                        </a>
+                        {% endif %}
+                    </div>
                     <div id="title-page">
                         {% block header %}
                         <h1>{{ block('title') }}</h1>
