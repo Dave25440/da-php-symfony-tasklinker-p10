@@ -13,6 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
+    #[Route('/welcome', name: 'app_welcome', methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->render('registration/index.html.twig');
+    }
+
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
