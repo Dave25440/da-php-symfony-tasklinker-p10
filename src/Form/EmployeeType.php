@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Employee;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,6 +33,27 @@ class EmployeeType extends AbstractType
             ->add('status', TextType::class, [
                 'label' => 'Statut',
             ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Rôle',
+                'choices' => [
+                    'Collaborateur' => 'ROLE_USER',
+                    'Chef de projet' => 'ROLE_ADMIN',
+                ],
+                'multiple' => false,
+            ])
+            ->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+
+                // Transforme le tableau en chaîne (avant l'affichage du formulaire)
+                function ($rolesArray) {
+                    return is_array($rolesArray) && count($rolesArray) > 0 ? $rolesArray[0] : null;
+                },
+
+                // Transforme la chaîne du formulaire en tableau (après la soumission du formulaire)
+                function ($roleString) {
+                    return $roleString ? [$roleString] : [];
+                }
+            ))
         ;
     }
 
