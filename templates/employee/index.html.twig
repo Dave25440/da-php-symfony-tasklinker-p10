@@ -12,6 +12,7 @@
         <tr>
             <th>Prénom, Nom</th>
             <th>Statut</th>
+            <th>Rôle</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -28,6 +29,13 @@
                 </div>
             </td>
             <td>{{ employee.status }}</td>
+            <td>
+                {% if 'ROLE_ADMIN' in employee.getRoles() %}
+                Chef de projet
+                {% else %}
+                Collaborateur
+                {% endif %}
+            </td>
             <td>
                 <a class="button button-edit-team" href="{{ path('app_employee_edit', {id: employee.id}) }}">Éditer</a>
                 <a class="delete-team" href="{{ path('app_employee_delete', {id: employee.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce membre ?');">Supprimer</a>
