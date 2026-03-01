@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
@@ -50,6 +52,10 @@ class RegistrationFormType extends AbstractType
                         'pattern' => '/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,32}$/',
                         'message' => 'Votre mot de passe doit contenir entre 8 et 32 caractères dont un chiffre, une minuscule, une majuscule et un caractère spécial, sans espaces.',
                     ]),
+                    /* new PasswordStrength([
+                        'minScore' => PasswordStrength::STRENGTH_STRONG,
+                    ]),
+                    new NotCompromisedPassword(), */
                 ],
             ])
         ;
