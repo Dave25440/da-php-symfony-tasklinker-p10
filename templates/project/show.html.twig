@@ -10,7 +10,9 @@
         <div class="avatar">{{ employee.firstname|slice(0,1)|upper ~ employee.lastname|slice(0,1)|upper }}</div>
     {% endfor %}
     </div>
+    {% if is_granted('ROLE_ADMIN') %}
     <a class="button" href="{{ path('app_project_edit', {id: project.id}) }}">Modifier</a>
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -32,11 +32,13 @@
                             <i class="fa-solid fa-list-check"></i> Projets
                         </a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li {% if 'employee' in app.request.attributes.get('_route') %}class="active"{% endif %}>
                         <a href="{{ path('app_employee') }}">
                             <i class="fa-regular fa-user"></i> Équipe
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </nav>
             <main>
