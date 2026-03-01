@@ -16,12 +16,20 @@ class RegistrationController extends AbstractController
     #[Route('/welcome', name: 'app_welcome', methods: ['GET'])]
     public function index(): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('registration/index.html.twig');
     }
 
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+
         $user = new Employee();
         $user->setStart(new \DateTimeImmutable());
         $user->setStatus('CDI');
