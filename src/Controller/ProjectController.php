@@ -36,6 +36,8 @@ final class ProjectController extends AbstractController
 
         if (!$project) {
             throw $this->createNotFoundException('Projet introuvable.');
+        } else {
+            $this->denyAccessUnlessGranted('project.employees', $project);
         }
 
         $tasksToDo = [];
