@@ -32,7 +32,7 @@ final class ProjectController extends AbstractController
     #[Route('/project/{id}', name: 'app_project', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(int $id): Response
     {
-        $project = $this->projectRepository->findActiveOne($id);
+        $project = $this->projectRepository->findActiveById($id);
 
         if (!$project) {
             throw $this->createNotFoundException('Projet introuvable.');

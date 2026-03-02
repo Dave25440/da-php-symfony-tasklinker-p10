@@ -21,8 +21,8 @@ class Project
     #[ORM\Column(name: 'title', length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(name: 'archive', options: ['default' => true])]
-    private ?bool $archive = true;
+    #[ORM\Column(name: 'archive', options: ['default' => false])]
+    private ?bool $archive = false;
 
     /**
      * @var Collection<int, Employee>

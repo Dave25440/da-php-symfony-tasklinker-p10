@@ -19,20 +19,20 @@ class ProjectRepository extends ServiceEntityRepository
     public function findActive(): array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.archive = :active')
-            ->setParameter('active', true)
+            ->andWhere('p.archive = :archive')
+            ->setParameter('archive', false)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findActiveOne(int $id): ?Project
+    public function findActiveById(int $id): ?Project
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.id = :id')
-            ->andWhere('p.archive = :active')
+            ->andWhere('p.archive = :archive')
             ->setParameter('id', $id)
-            ->setParameter('active', true)
+            ->setParameter('archive', false)
             ->getQuery()
             ->getOneOrNullResult()
         ;
