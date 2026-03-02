@@ -22,7 +22,11 @@ final class ProjectController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET'])]
     public function index(): Response
     {
-        $projects = $this->projectRepository->findActive();
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $projects = $this->projectRepository->findActive();
+        } else {
+            $projects = $this->projectRepository->findActiveByEmployee($this->getUser());
+        }
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
