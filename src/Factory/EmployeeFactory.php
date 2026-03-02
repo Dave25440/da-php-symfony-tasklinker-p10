@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\Employee;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 use Zenstruck\Foundry\Persistence\Proxy;
 use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
@@ -18,7 +19,7 @@ final class EmployeeFactory extends PersistentObjectFactory{
      *
      * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(private readonly UserPasswordHasherInterface $hasher)
     {
     }
 
@@ -40,6 +41,8 @@ final class EmployeeFactory extends PersistentObjectFactory{
             'projects' => ProjectFactory::randomSet(self::faker()->numberBetween(1, 2)),
             'start' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'status' => self::faker()->randomElement(['CDI', 'CDD', 'Freelance']),
+            'roles' => self::faker()->randomElement([[], ['ROLE_ADMIN']]),
+            'password' => $this->hasher->hashPassword(new Employee(), 'P@ssw0rd'),
         ];
     }
 
