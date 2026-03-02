@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Employee;
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,6 +36,19 @@ class ProjectRepository extends ServiceEntityRepository
             ->setParameter('archive', false)
             ->getQuery()
             ->getOneOrNullResult()
+        ;
+    }
+
+    public function findActiveByEmployee(Employee $employee): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.employees', 'e')
+            ->andWhere('e = :employee')
+            ->andWhere('p.archive = :archive')
+            ->setParameter('employee', $employee)
+            ->setParameter('archive', false)
+            ->getQuery()
+            ->getResult()
         ;
     }
 
